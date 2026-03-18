@@ -1,5 +1,5 @@
- # Fedora 43 Post Install Guide
-Things to do after installing Fedora 43
+ # Fedora 44 Post Install Guide
+Things to do after installing Fedora 44
 
 ## RPM Fusion & Terra
 
