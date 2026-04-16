@@ -95,10 +95,9 @@ sudo dnf group install -y sound-and-video # Installs useful Sound and Video comp
  
 * If you have an AMD chipset, after installing the packages above do:
 ```
-sudo dnf swap mesa-va-drivers mesa-va-drivers-freeworld
-sudo dnf swap mesa-va-drivers.i686 mesa-va-drivers-freeworld.i686
+sudo dnf install mesa-va-drivers-freeworld
+sudo dnf install mesa-va-drivers-freeworld.i686
 ```
-</details>
 
 ### OpenH264 for Firefox
 * `sudo dnf install -y openh264 gstreamer1-plugin-openh264 mozilla-openh264`
