@@ -42,19 +42,38 @@ fwupdmgr update
 * `flatpak install it.mijorus.gearlever` 
 
 ## NVIDIA Drivers
-* Only follow this if you have a NVIDIA gpu. Also, don't follow this if you have a gpu which has dropped support for newer driver releases i.e. anything earlier than nvidia GT/GTX 600, 700, 800, 900, 1000, 1600 and RTX 2000, 3000, 4000, 5000 series. Fedora comes preinstalled with NOUVEAU drivers which may or may not work better on those remaining older GPUs. This should be followed by Desktop and Laptop users alike.
 * `sudo dnf update` #To make sure you're on the latest kernel and then reboot.
-* **IMPORTANT NOTE:** Check if you have Secure Boot enabled with: `mokutil --sb-state`. If yes then you can chose to either disable secure boot in your BIOS or you must follow the "Secure Boot Key Enrollment" section of [this guide](https://github.com/Comprehensive-Wall28/Nvidia-Fedora-Guide?tab=readme-ov-file#2-secure-boot-key-enrollment) before continuing with the steps below.
-* Enable RPM Fusion Nvidia non-free repository in the app store and install it from there,
-* or alternatively
+* Check if you have Secure Boot enabled with: `mokutil --sb-state`. If enabled, follow number 1 if not then number 2
+
+<details>
+<summary>1. Secure Boot Enabled:</summary>
+* `sudo dnf install kmodtool akmods mokutil openssl`
+* `sudo kmodgenca -a` # If you see "WARNING: EXISTING KEY PAIR", then add `--force` at the end of the command and run it again.
+* `sudo mokutil --import /etc/pki/akmods/certs/public_key.der`
+* Create a short simple password like "1234" and remember it for a later step.
+* `systemctl reboot`
+* Reboot and in the blue screen on startup do: `"Enroll MOK" -> "Continue" -> "Yes" -> "Enter Password (i.e. 1234) -> Reboot Again"`
+* Now open terminal and install the nvidia drivers:
 * `sudo dnf install akmod-nvidia`
 * Install this if you use applications that can utilise CUDA i.e. Davinci Resolve, Blender etc.
 * `sudo dnf install xorg-x11-drv-nvidia-cuda`
 * Wait for atleast 5 mins before rebooting, to let the kernel module get built.
 * `modinfo -F version nvidia` #Check if the kernel module is built.
-* **IMPORTANT (optional):** If your disk is encrypted follow the Encrypted Disk section of [this guide](https://github.com/Comprehensive-Wall28/Nvidia-Fedora-Guide?tab=readme-ov-file#encrypted-drives).
 * Reboot once its built.
-
+* Congrats now you have working nvidia drivers setup with secure boot enabled!
+</details>
+<details>
+<summary>2. Secure Boot Disabled </summary>
+* Open terminal and install the nvidia drivers:
+* `sudo dnf install akmod-nvidia`
+* Install this if you use applications that can utilise CUDA i.e. Davinci Resolve, Blender etc.
+* `sudo dnf install xorg-x11-drv-nvidia-cuda`
+* Wait for atleast 5 mins before rebooting, to let the kernel module get built.
+* `modinfo -F version nvidia` #Check if the kernel module is built.
+* Reboot once its built.
+* Congrats now you have working nvidia drivers!
+</details>
+* Note (optional): If your disk is encrypted follow the Encrypted Disk section of [this guide](https://github.com/Comprehensive-Wall28/Nvidia-Fedora-Guide?tab=readme-ov-file#encrypted-drives) .
 
 ## ~~Battery Life (Deprecated)~~
 * ~~Follow this if you have a Laptop and are facing sub optimal battery backup.~~
