@@ -46,33 +46,47 @@ fwupdmgr update
 * Check if you have Secure Boot enabled with: `mokutil --sb-state`. If enabled, follow number 1 if not then number 2
 
 <details>
-<summary>1. Secure Boot Enabled:</summary>
-* `sudo dnf install kmodtool akmods mokutil openssl`
-* `sudo kmodgenca -a` # If you see "WARNING: EXISTING KEY PAIR", then add `--force` at the end of the command and run it again.
-* `sudo mokutil --import /etc/pki/akmods/certs/public_key.der`
-* Create a short simple password like "1234" and remember it for a later step.
-* `systemctl reboot`
-* Reboot and in the blue screen on startup do: `"Enroll MOK" -> "Continue" -> "Yes" -> "Enter Password (i.e. 1234) -> Reboot Again"`
-* Now open terminal and install the nvidia drivers:
-* `sudo dnf install akmod-nvidia`
-* Install this if you use applications that can utilise CUDA i.e. Davinci Resolve, Blender etc.
-* `sudo dnf install xorg-x11-drv-nvidia-cuda`
-* Wait for atleast 5 mins before rebooting, to let the kernel module get built.
-* `modinfo -F version nvidia` #Check if the kernel module is built.
-* Reboot once its built.
-* Congrats now you have working nvidia drivers setup with secure boot enabled!
+<summary>(A) Secure Boot Enabled:</summary>
+Follow these steps if you have Secure Boot Enabled:
+
+1.  Install the tools below to work with the keys:
+ * `sudo dnf install kmodtool akmods mokutil openssl`
+2.  Generate a key with default values:
+ * `sudo kmodgenca -a`
+ *  Note: If you see "WARNING: EXISTING KEY PAIR", then add `--force` at the end of the command and run it again.
+3.  Enroll the key with the command below:
+ * `sudo mokutil --import /etc/pki/akmods/certs/public_key.der`
+ * When prompted create a short simple password like "1234" and remember it for a later step.
+ * Reboot by typing `systemctl reboot`
+4. In the blue screen that shows up on startup, do:
+ * `"Enroll MOK" -> "Continue" -> "Yes" -> "Enter Password (i.e. 1234)"`
+ * Reboot Again
+5. Once logged in, open the terminal and install Nvidia drivers:
+ * `sudo dnf install akmod-nvidia`
+ * For CUDA support install the package below (if you use Davinci Resolve, Blender etc.)
+ * `sudo dnf install xorg-x11-drv-nvidia-cuda`
+ * Wait for atleast 5 mins before rebooting, to let the kernel module get built. Once its built, the command above would output the driver version instead of an error.
+ * `modinfo -F version nvidia # check if kmod is built` 
+ * Reboot once its built.
+* Congrats now you have working Nvidia drivers with secure boot enabled!
 </details>
+
 <details>
-<summary>2. Secure Boot Disabled </summary>
-* Open terminal and install the nvidia drivers:
-* `sudo dnf install akmod-nvidia`
-* Install this if you use applications that can utilise CUDA i.e. Davinci Resolve, Blender etc.
-* `sudo dnf install xorg-x11-drv-nvidia-cuda`
-* Wait for atleast 5 mins before rebooting, to let the kernel module get built.
-* `modinfo -F version nvidia` #Check if the kernel module is built.
-* Reboot once its built.
-* Congrats now you have working nvidia drivers!
+<summary>(B) Secure Boot Disabled </summary>
+Install Nvidia drivers by following the steps below in a terminal:
+
+
+ * `sudo dnf install akmod-nvidia`
+ * For CUDA support install the package below (if you use Davinci Resolve, Blender etc.)
+ * `sudo dnf install xorg-x11-drv-nvidia-cuda`
+ * Wait for atleast 5 mins before rebooting, to let the kernel module get built. Once its built, the command above would output the driver version instead of an error.
+ * `modinfo -F version nvidia # check if kmod is built` 
+ * Reboot once its built.
+ * Congrats now you have working nvidia drivers setup with secure boot enabled!
+
+* Congrats now you have working Nvidia drivers!
 </details>
+
 * Note (optional): If your disk is encrypted follow the Encrypted Disk section of [this guide](https://github.com/Comprehensive-Wall28/Nvidia-Fedora-Guide?tab=readme-ov-file#encrypted-drives) .
 
 ## ~~Battery Life (Deprecated)~~
