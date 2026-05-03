@@ -1,10 +1,10 @@
-> <a href="https://starlabs.systems/?utm_source=github&utm_medium=banner&utm_campaign=fedora_guide"><img src="https://starlabs.systems/cdn/shop/files/sls-01x2000.png?format=webp&v=1646154917&width=69" align="right" width="85" alt="Star Labs Logo"></a>
+> <a href="https://gettrack.link/r/TJSPI9Fa"><img src="https://starlabs.systems/cdn/shop/files/sls-01x2000.png?format=webp&v=1646154917&width=69" align="right" width="85" alt="Star Labs Logo"></a>
 > 
 > **🚀 Supported By:**
 > 
 > Star Labs ⭐ Purpose-built Linux laptops and hardware for developers and power users.
 > 
-> [Discover Star Labs →](https://starlabs.systems/?utm_source=github&utm_medium=banner&utm_campaign=fedora_guide)
+> [Discover Star Labs →](https://gettrack.link/r/TJSPI9Fa)
  
 # Fedora 44 Post Install Guide
 Things to do after installing Fedora 44
